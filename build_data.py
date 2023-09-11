@@ -1,5 +1,6 @@
 import csv
 import os
+import re
 
 INPUT_DATA_FOLDER = './Data/Input'
 OUTPUT_DATA_FOLDER = './Data/Output'
@@ -56,7 +57,10 @@ class FileProcessor:
 
     def __cleanString(self, string):
         stringEncoded = string.encode("ascii", "ignore")
-        return stringEncoded.decode()
+        string = stringEncoded.decode()
+        string = string.replace('\n', ' ')
+        string = re.sub("[^a-zA-Z ]", "", string)
+        return string 
 
     def __tryAddComment(self, comment):
         if comment.text in self.comments:
